@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "isty-ingestion-pipeline-stack"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-e6zstrnbaj6q"
+s3_prefix = "isty-ingestion-pipeline-stack"
+region = "eu-west-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"

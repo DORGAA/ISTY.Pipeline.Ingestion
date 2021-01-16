@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Ingestion-Pipeline
+
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 128
+
+Resources:
+  IngestionBucket: # Bucket for website
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: isty-ingestion-bucket
+
+  IngestionFrontBucket: # Bucket for website
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: isty-ingestion-front-bucket
+
+  IngestionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: isty-ingestion-function
+      Role: arn:aws:iam::395847786405:role/isty-role-lambda-ingestion
+      CodeUri: src/
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Events:
+        PutFileEvent:
+          Type: S3
+          Properties:
+            Bucket:
+              Ref: IngestionBucket
+            Events:
+              - 's3:ObjectCreated:*'
+            Filter:
+              S3Key:
+                Rules:
+                  - Name: suffix
+                    Value: .json
+
+  IngestionFunctionTrigger:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !GetAtt IngestionFunction.Arn
+      Action: lambda:InvokeFunction
+      Principal: s3.amazonaws.com
+      SourceArn: arn:aws:s3:::isty-ingestion-bucket
+
+  IngestionTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      TableName: isty-ingestion-table
+      PrimaryKey:
+        Name: student_id
+        Type: String
+
+
+
+
+
+Outputs:
+  HelloWorldFunctionIamRole:
+    Description: "Implicit IAM Role created for Hello World function"
+    Value: !GetAtt IngestionFunction.Arn
