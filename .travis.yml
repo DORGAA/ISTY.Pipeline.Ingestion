@@ -21,7 +21,7 @@ jobs:
   include:
     - stage: buildNdeployment
       name: Build and Deploy
-      if: branch in (master)
+      if: branch in (main)
       script: skip
       deploy:
         provider: script
@@ -29,4 +29,4 @@ jobs:
          Ingestion-Pipeline/scripts/dep_script.sh $NUMBER
         on:
           all_branches: true
-          condition: $TRAVIS_BRANCH =~(master)$
+          condition: $TRAVIS_BRANCH =~(main)$
