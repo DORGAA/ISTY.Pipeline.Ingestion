@@ -9,6 +9,10 @@ Globals:
     Timeout: 30
     MemorySize: 128
 
+Parameters:
+  Number:
+    Type: String
+
 Resources:
   IngestionBucket: # Bucket for website
     Type: AWS::S3::Bucket
@@ -24,7 +28,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: isty-ingestion-function
-      Role: arn:aws:iam::395847786405:role/isty-role-lambda-ingestion
+      Role: !Sub arn:aws:iam::${Number}:role/isty-role-lambda-ingestion
       CodeUri: src/
       Handler: app.lambda_handler
       Runtime: python3.8
@@ -102,7 +106,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: isty-ingestion-api-function
-      Role: arn:aws:iam::395847786405:role/isty-role-lambda-ingestion
+      Role: !Sub arn:aws:iam::${Number}:role/isty-role-lambda-ingestion
       CodeUri: src/
       Handler: app_api.lambda_handler
       Runtime: python3.8

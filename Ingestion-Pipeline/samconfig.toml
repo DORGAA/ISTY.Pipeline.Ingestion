@@ -6,5 +6,6 @@ stack_name = "isty-ingestion-pipeline-stack"
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-e6zstrnbaj6q"
 s3_prefix = "isty-ingestion-pipeline-stack"
 region = "eu-west-1"
-confirm_changeset = true
+confirm_changeset = false
 capabilities = "CAPABILITY_IAM"
+
