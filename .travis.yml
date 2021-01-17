@@ -30,7 +30,6 @@ jobs:
       deploy:
         provider: script
         script: >-
-          pwd
           ./Ingestion-Pipeline/dep_script.sh ${NUMBER}
         on:
           all_branches: true
