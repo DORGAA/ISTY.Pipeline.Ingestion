@@ -6,8 +6,9 @@ python:
 stages:
   - buildNdeployment
 env:
-  - BIN_PATH=$HOME/bin
-  - BOTO_CONFIG=/dev/null
+  global:
+    - BIN_PATH=$HOME/bin
+    - BOTO_CONFIG=/dev/null
 
 before_install:
   - sudo apt-get -qq update
