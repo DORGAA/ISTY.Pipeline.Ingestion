@@ -26,7 +26,7 @@ jobs:
       deploy:
         provider: script
         script: >-
-         Ingestion-Pipeline/scripts/dep_script.sh ${NUMBER}
+          $TRAVIS_BUILD_DIR/Ingestion-Pipeline/scripts/dep_script.sh ${NUMBER}
         on:
           all_branches: true
           condition: $TRAVIS_BRANCH =~(main)$
