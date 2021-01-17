@@ -13,6 +13,7 @@ env:
   global:
     - BIN_PATH=$HOME/bin
     - BOTO_CONFIG=/dev/null
+    - AWS_DEFAULT_REGION=eu-west-1
 
 before_install:
   - sudo apt-get -qq update
