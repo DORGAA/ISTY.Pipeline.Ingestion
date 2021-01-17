@@ -2,6 +2,8 @@
 set -e
 AWS_ACCESS_KEY_ID=${KEY_ID}
 AWS_SECRET_ACCESS_KEY=${SECRET_KEY}
+export AWS_ACCESS_KEY_ID
+export AWS_SECRET_ACCESS_KEY
 
 NMBR=$1
 pushd "Ingestion-Pipeline"
