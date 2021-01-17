@@ -14,7 +14,7 @@ before_install:
   - sudo apt-get -qq update
 
 before_deploy:
-  - pip install awscli
+  - pip install awscli==1.18.117
   - pip install aws-sam-cli
 
 jobs:
