@@ -58,6 +58,64 @@ Resources:
         Name: student_id
         Type: String
 
+  ResquestsApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: isty-ingestion-requests-api
+      Auth:
+        ApiKeyRequired: true
+      StageName: prd
+
+  RequestKey:
+    Type: AWS::ApiGateway::ApiKey
+    Properties:
+      Name: isty-ingestion-requests-api-key
+      Enabled: true
+      StageKeys:
+        -
+          RestApiId: !Ref ResquestsApi
+          StageName: !Ref ResquestsApi.Stage
+
+  RequestsPlan:
+    Type: AWS::ApiGateway::UsagePlan
+    Properties:
+      UsagePlanName: isty-ingestion-requests-api-plan
+      Quota:
+        Limit: 10000
+        Period: MONTH
+      Throttle:
+        BurstLimit: 1000
+        RateLimit: 1
+      ApiStages:
+        -
+          ApiId: !Ref ResquestsApi
+          Stage: !Ref ResquestsApi.Stage
+
+  LinkPlanKey:
+    Type: AWS::ApiGateway::UsagePlanKey
+    Properties:
+      KeyId: !Ref RequestKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref RequestsPlan
+
+  RequestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: isty-ingestion-api-function
+      Role: arn:aws:iam::395847786405:role/isty-role-lambda-ingestion
+      CodeUri: src/
+      Handler: app_api.lambda_handler
+      Runtime: python3.8
+      Events:
+        PutFileEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ResquestsApi
+            Path: /hello
+            Method: get
+
+
+
 
 
 
