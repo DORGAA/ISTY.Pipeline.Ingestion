@@ -14,7 +14,7 @@ before_install:
   - sudo apt-get -qq update
 
 before_deploy:
-  - pip install awscli==1.18.140 
+  - pip install awscli==1.18.140
   - pip install aws-sam-cli
 
 jobs:
@@ -26,7 +26,7 @@ jobs:
       deploy:
         provider: script
         script: >-
-         Ingestion-Pipeline/scripts/dep_script.sh $NUMBER
+         Ingestion-Pipeline/scripts/dep_script.sh ${NUMBER}
         on:
           all_branches: true
           condition: $TRAVIS_BRANCH =~(main)$
