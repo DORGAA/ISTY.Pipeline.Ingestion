@@ -35,7 +35,7 @@ def annee():
         items.extend(result["Items"])
     confs = []
     for item in items:
-    	if item["annee"] not in conf:
+    	if item["annee"] not in confs:
         	confs.append(item["annee"])
 
     return jsonify(confs), 201
