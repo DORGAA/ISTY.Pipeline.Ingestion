@@ -133,12 +133,12 @@ Resources:
             RestApiId: !Ref ResquestsApi
             Path: /hello
             Method: get
-        PostEvent:
+        AnneeEvent:
           Type: Api
           Properties:
             RestApiId: !Ref ResquestsApi
-            Path: /hello
-            Method: post
+            Path: /annee
+            Method: get
 
 
 
