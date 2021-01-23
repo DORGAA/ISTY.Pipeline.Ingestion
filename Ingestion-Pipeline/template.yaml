@@ -124,7 +124,7 @@ Resources:
       FunctionName: isty-ingestion-api-function
       Role: !Sub arn:aws:iam::${Number}:role/isty-role-lambda-ingestion
       CodeUri: src/
-      Handler: app_api.lambda_handler
+      Handler: app_api.app
       Runtime: python3.8
       Events:
         PutFileEvent:
