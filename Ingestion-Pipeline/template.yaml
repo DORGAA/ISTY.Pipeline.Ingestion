@@ -139,14 +139,14 @@ Resources:
             RestApiId: !Ref ResquestsApi
             Path: /annee
             Method: get
-
-
-
-
-
-
+        MatEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ResquestsApi
+            Path: /matricules/{annee}
+            Method: get
 
 Outputs:
-  HelloWorldFunctionIamRole:
-    Description: "Implicit IAM Role created for Hello World function"
+  LambdaFunction:
+    Description: "Lambda arn"
     Value: !GetAtt IngestionFunction.Arn
