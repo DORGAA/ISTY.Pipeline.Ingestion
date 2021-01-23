@@ -33,4 +33,4 @@ def annee():
 def matricules(annee):
     table = boto3.resource("dynamodb").Table(student_table_name)
     results = table.query(KeyConditionExpression=Key('annee').eq(annee))
-    return jsonify(results["Items"]), 201
+    return results["Items"], 201
