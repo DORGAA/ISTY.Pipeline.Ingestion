@@ -64,17 +64,17 @@ Resources:
       BillingMode: PAY_PER_REQUEST
       AttributeDefinitions:
         -
-          AttributeName: matricule
+          AttributeName: annee
           AttributeType: S
         -
-          AttributeName: annee
+          AttributeName: matricule
           AttributeType: S
       KeySchema:
         -
-          AttributeName: matricule
+          AttributeName: annee
           KeyType: HASH
         -
-          AttributeName: annee
+          AttributeName: matricule
           KeyType: RANGE
 
 
@@ -127,12 +127,18 @@ Resources:
       Handler: app_api.app
       Runtime: python3.8
       Events:
-        PutFileEvent:
+        GetEvent:
           Type: Api
           Properties:
             RestApiId: !Ref ResquestsApi
             Path: /hello
             Method: get
+        PostEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ResquestsApi
+            Path: /hello
+            Method: post
 
 
 
