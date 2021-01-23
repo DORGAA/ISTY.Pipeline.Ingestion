@@ -126,6 +126,9 @@ Resources:
       CodeUri: src/
       Handler: app_api.app
       Runtime: python3.8
+      Environment:
+        Variables:
+          TABLE_NAME: isty-ingestion-table
       Events:
         GetEvent:
           Type: Api
@@ -145,6 +148,24 @@ Resources:
             RestApiId: !Ref ResquestsApi
             Path: /matricules/{annee}
             Method: get
+        EdtGetEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ResquestsApi
+            Path: /etudiant/{annee}/{matricule}
+            Method: get
+        EdtDelEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ResquestsApi
+            Path: /etudiant/{annee}/{matricule}
+            Method: 
+        EdtPostEvent:
+          Type: Api
+          Properties:
+            RestApiId: !Ref ResquestsApi
+            Path: /etudiant/{annee}/{matricule}
+            Method: post
 
 Outputs:
   LambdaFunction:
