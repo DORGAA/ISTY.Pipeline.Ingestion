@@ -1,4 +1,5 @@
 import boto3
+from boto3.dynamodb.conditions import Key
 from flask import request, jsonify
 from flask_lambda import FlaskLambda
 
