@@ -56,7 +56,7 @@ def matricules(annee):
     return jsonify(results["Items"]), 200
 
 
-@app.route('/etudiant/{annee}/{matricule}', methods=('GET',))
+@app.route('/etudiant/<annee>/<matricule>', methods=('GET',))
 @cross_origin()
 def get_etudiant(annee, matricule):
     table = boto3.resource("dynamodb").Table(student_table_name)
@@ -64,14 +64,14 @@ def get_etudiant(annee, matricule):
     return jsonify(results["Item"]), 200
 
 
-@app.route('/etudiant/{annee}/{matricule}', methods=('DELETE',))
+@app.route('/etudiant/<annee>/<matricule>', methods=('DELETE',))
 @cross_origin()
 def delete_etudiant(annee, matricule):
     table = boto3.resource("dynamodb").Table(student_table_name)
     results = table.delete_item(Key={"annee": annee, "matricule": matricule})
     return jsonify(results["Item"]), 200
 
-@app.route('/etudiant/{annee}/{matricule}', methods=('POST',))
+@app.route('/etudiant/<annee>/<matricule>', methods=('POST',))
 @cross_origin()
 def post_etudiant(annee, matricule):
     table = boto3.resource("dynamodb").Table(student_table_name)
