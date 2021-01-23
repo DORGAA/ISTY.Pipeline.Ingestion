@@ -32,6 +32,9 @@ Resources:
       CodeUri: src/
       Handler: app.lambda_handler
       Runtime: python3.8
+      Environment:
+        Variables:
+          TABLE_NAME: isty-ingestion-table
       Events:
         PutFileEvent:
           Type: S3
@@ -55,12 +58,25 @@ Resources:
       SourceArn: arn:aws:s3:::isty-ingestion-bucket
 
   IngestionTable:
-    Type: AWS::Serverless::SimpleTable
+    Type: AWS::DynamoDB::Table
     Properties:
       TableName: isty-ingestion-table
-      PrimaryKey:
-        Name: student_id
-        Type: String
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        -
+          AttributeName: matricule
+          AttributeType: S
+        -
+          AttributeName: annee
+          AttributeType: S
+      KeySchema:
+        -
+          AttributeName: matricule
+          KeyType: HASH
+        -
+          AttributeName: annee
+          KeyType: RANGE
+
 
   ResquestsApi:
     Type: AWS::Serverless::Api
