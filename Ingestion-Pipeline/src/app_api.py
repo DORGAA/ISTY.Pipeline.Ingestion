@@ -26,3 +26,10 @@ def annee():
         confs.append(item["annee"])
 
     return jsonify(confs), 201
+
+
+@app.route('/matricules/{annee}', methods=('GET',))
+def matricules(annee):
+    table = boto3.resource("dynamodb").Table(student_table_name)
+    results = table.query(KeyConditionExpression=Key('annee').eq(annee))
+    return jsonify(results["Items"]), 201
