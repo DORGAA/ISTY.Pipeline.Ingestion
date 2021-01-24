@@ -86,6 +86,7 @@ Resources:
         ApiKeyRequired: true
       StageName: prd
 
+
   RequestKey:
     Type: AWS::ApiGateway::ApiKey
     Properties:
@@ -159,7 +160,7 @@ Resources:
           Properties:
             RestApiId: !Ref ResquestsApi
             Path: /etudiant/{annee}/{matricule}
-            Method: 
+            Method: delete
         EdtPostEvent:
           Type: Api
           Properties:
