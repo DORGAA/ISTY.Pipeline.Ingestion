@@ -84,6 +84,7 @@ Resources:
       Name: isty-ingestion-requests-api
       Auth:
         ApiKeyRequired: true
+        AddDefaultAuthorizerToCorsPreflight: false
       StageName: prd
       Cors: "'http://localhost:4200'"
       DefinitionBody:
