@@ -86,6 +86,11 @@ Resources:
         ApiKeyRequired: true
       StageName: prd
       Cors: "'*'"
+      DefinitionBody:
+        'Fn::Transform':
+          Name: 'AWS::Include'
+          Parameters:
+            Location: s3://aws-sam-cli-managed-default-samclisourcebucket-e6zstrnbaj6q/swagger.yaml
 
 
   RequestKey:
