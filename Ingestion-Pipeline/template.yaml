@@ -142,37 +142,37 @@ Resources:
           Properties:
             RestApiId: !Ref ResquestsApi
             Path: /hello
-            Method: get
+            Method: GET
         AnneeEvent:
           Type: Api
           Properties:
             RestApiId: !Ref ResquestsApi
             Path: /annee
-            Method: get
+            Method: GET
         MatEvent:
           Type: Api
           Properties:
             RestApiId: !Ref ResquestsApi
             Path: /matricules/{annee}
-            Method: get
+            Method: GET
         EdtGetEvent:
           Type: Api
           Properties:
             RestApiId: !Ref ResquestsApi
             Path: /etudiant/{annee}/{matricule}
-            Method: get
+            Method: GET
         EdtDelEvent:
           Type: Api
           Properties:
             RestApiId: !Ref ResquestsApi
             Path: /etudiant/{annee}/{matricule}
-            Method: delete
+            Method: DELETE
         EdtPostEvent:
           Type: Api
           Properties:
             RestApiId: !Ref ResquestsApi
             Path: /etudiant/{annee}/{matricule}
-            Method: post
+            Method: POST
 
 Outputs:
   LambdaFunction:
