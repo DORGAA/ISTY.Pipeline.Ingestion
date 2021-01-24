@@ -64,7 +64,10 @@ def matricules(annee):
 def get_etudiant(annee, matricule):
     table = boto3.resource("dynamodb").Table(student_table_name)
     results = table.get_item(Key={"annee": annee, "matricule": matricule})
-    return jsonify(results["Item"]), 200
+    if "Item" in results:
+    	return jsonify(results["Item"]), 200
+    else:
+    	return jsonify({}), 200
 
 
 @app.route('/etudiant/<annee>/<matricule>', methods=('DELETE',))
