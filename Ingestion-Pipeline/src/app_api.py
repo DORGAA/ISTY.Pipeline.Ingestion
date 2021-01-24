@@ -4,6 +4,7 @@ from flask import request, jsonify
 import decimal
 import os
 import flask.json
+import json
 from flask_lambda import FlaskLambda
 
 
@@ -76,5 +77,5 @@ def delete_etudiant(annee, matricule):
 @app.route('/etudiant/<annee>/<matricule>', methods=('POST',))
 def post_etudiant(annee, matricule):
     table = boto3.resource("dynamodb").Table(student_table_name)
-    table.put_item(request.json)
+    table.put_item(json.loads(request.json))
     return jsonify({"insert":request.json}), 200
