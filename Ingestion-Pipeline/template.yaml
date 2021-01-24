@@ -85,6 +85,7 @@ Resources:
       Auth:
         ApiKeyRequired: true
       StageName: prd
+      Cors: "'*'"
 
 
   RequestKey:
