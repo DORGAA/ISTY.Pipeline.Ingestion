@@ -82,9 +82,6 @@ Resources:
     Type: AWS::Serverless::Api
     Properties:
       Name: isty-ingestion-requests-api
-      Auth:
-        ApiKeyRequired: true
-        AddDefaultAuthorizerToCorsPreflight: false
       StageName: prd
       Cors: "'http://localhost:4200'"
       DefinitionBody:
@@ -93,16 +90,6 @@ Resources:
           Parameters:
             Location: s3://aws-sam-cli-managed-default-samclisourcebucket-e6zstrnbaj6q/swagger.yaml
 
-
-  RequestKey:
-    Type: AWS::ApiGateway::ApiKey
-    Properties:
-      Name: isty-ingestion-requests-api-key
-      Enabled: true
-      StageKeys:
-        -
-          RestApiId: !Ref ResquestsApi
-          StageName: !Ref ResquestsApi.Stage
 
   RequestsPlan:
     Type: AWS::ApiGateway::UsagePlan
@@ -118,13 +105,6 @@ Resources:
         -
           ApiId: !Ref ResquestsApi
           Stage: !Ref ResquestsApi.Stage
-
-  LinkPlanKey:
-    Type: AWS::ApiGateway::UsagePlanKey
-    Properties:
-      KeyId: !Ref RequestKey
-      KeyType: API_KEY
-      UsagePlanId: !Ref RequestsPlan
 
   RequestFunction:
     Type: AWS::Serverless::Function
