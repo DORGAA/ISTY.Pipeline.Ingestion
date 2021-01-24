@@ -49,7 +49,7 @@ def annee():
         if item["annee"] not in confs:
             confs.append(item["annee"])
 
-    return jsonify(confs)
+    return jsonify(confs), 200
 
 
 @app.route('/matricules/<annee>', methods=('GET',))
@@ -70,11 +70,11 @@ def get_etudiant(annee, matricule):
 def delete_etudiant(annee, matricule):
     table = boto3.resource("dynamodb").Table(student_table_name)
     results = table.delete_item(Key={"annee": annee, "matricule": matricule})
-    return jsonify(results["Item"]), 200
+    return jsonify({"delete": f"{annee}-{matricule}"}), 200
 
 
 @app.route('/etudiant/<annee>/<matricule>', methods=('POST',))
 def post_etudiant(annee, matricule):
     table = boto3.resource("dynamodb").Table(student_table_name)
     table.put_item(request.json)
-    return jsonify(results["Item"]), 200
+    return jsonify({"insert":request.json}), 200
