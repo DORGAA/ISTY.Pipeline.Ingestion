@@ -50,7 +50,13 @@ def annee():
         if item["annee"] not in confs:
             confs.append(item["annee"])
 
-    return jsonify(confs), 200
+    return {
+        "statusCode": 200,
+        'headers': {
+            "Access-Control-Allow-Origin": "*"
+        },
+        "body": json.dumps(confs),
+    }
 
 
 @app.route('/matricules/<annee>', methods=('GET',))
