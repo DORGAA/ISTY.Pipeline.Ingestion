@@ -24,7 +24,7 @@ student_table_name = os.environ["TABLE_NAME"]
 @app.after_request
 def after_request(response):
     header = response.headers
-    header['Access-Control-Allow-Origin'] = '*'
+    header['Access-Control-Allow-Origin'] = 'http://localhost:4200'
     header['Content-Type'] = 'application/json'
     return response
 
