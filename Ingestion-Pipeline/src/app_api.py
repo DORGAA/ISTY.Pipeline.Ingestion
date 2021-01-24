@@ -77,5 +77,5 @@ def delete_etudiant(annee, matricule):
 @app.route('/etudiant/<annee>/<matricule>', methods=('POST',))
 def post_etudiant(annee, matricule):
     table = boto3.resource("dynamodb").Table(student_table_name)
-    table.put_item(json.loads(request.json))
+    table.put_item(Item=request.json)
     return jsonify({"insert":request.json}), 200
