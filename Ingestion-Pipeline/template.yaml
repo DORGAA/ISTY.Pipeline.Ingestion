@@ -85,7 +85,7 @@ Resources:
       Auth:
         ApiKeyRequired: true
       StageName: prd
-      Cors: "'*'"
+      Cors: "'http://localhost:4200'"
       DefinitionBody:
         'Fn::Transform':
           Name: 'AWS::Include'
