@@ -21,6 +21,7 @@ def average_and_count(data):
     count = 0
     total = 0
     under_7 = 0
+    releve = []
     for key, value in data["notes"].items():
         total += value
         count += 1
@@ -29,12 +30,14 @@ def average_and_count(data):
             list_under_7.append(key)
         elif 10 > value >= 7:
             list_under_10.append(key)
+        matiere = { 'code_matiere': key, 'note': str(value) }
+        releve.append(matiere)
     avg = total / count
     print(avg)
-    return avg, under_7
+    return avg, under_7, releve
 
 
-def result(under_7, avg, data):
+def result(under_7, avg, data, releve):
     credits = []
     ratt = []
     if under_7 < 2:
@@ -68,7 +71,7 @@ def result(under_7, avg, data):
         "prenom": data["prenom"],
         "resultat": student_result,
         "moyenne": str(avg),
-        "releve": data["notes"],
+        "releve": releve,
 
     }
     if credits:
@@ -89,8 +92,7 @@ def lambda_handler(event, context):
     bucket_name = event['Records'][0]['s3']['bucket']['name']
     file_key = event['Records'][0]['s3']['object']['key']
     data = read_file(bucket_name, file_key)
-    avg, count = average_and_count(data)
-    s_result = result(count, avg, data)
+    avg, count, releve = average_and_count(data)
+    s_result = result(count, avg, data, releve)
     print(s_result)
     dynamodb_put_object(s_result)
-
